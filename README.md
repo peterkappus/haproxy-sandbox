@@ -12,8 +12,8 @@ mkdir s2 s1
 echo "Hello World." > s1/index.html
 echo "Good evening, Pasadena." > s2/index.html
 
-docker run -p 8000:80 -v "$(PWD)/1":/usr/share/nginx/html:ro -d nginx
-docker run -p 8001:80 -v "$(PWD)/s1":/usr/share/nginx/html:ro -d nginx
+docker run -p 8000:80 -v "$(PWD)/s1":/usr/share/nginx/html:ro -d nginx
+docker run -p 8001:80 -v "$(PWD)/s2":/usr/share/nginx/html:ro -d nginx
 ```
 
 ## NGINX:
@@ -25,7 +25,7 @@ service nginx stop | start | reload
 ```
 
 
-### Not connecting from CentOS? 
+### Not connecting from CentOS?
 ```
 setsebool -P httpd_can_network_connect on
 ```
@@ -73,7 +73,7 @@ setsebool -P haproxy_connect_any 1
 ```
 
 
-### Config file 
+### Config file
 Put this in `/etc/haproxy/haproxy.cfg`
 ```
 global
@@ -101,7 +101,7 @@ frontend http_front
    stats realm Haproxy\ Statistics
    # change username and password to something harder...
 	 stats auth username:password
-			
+
 backend http_back
    balance roundrobin
 	 cookie SERVERID insert indirect nocache
